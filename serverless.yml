@@ -1,0 +1,23 @@
+service: serverless-crud-api
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  environment:
+    DYNAMODB_TABLE: my-dynamodb-table  # ✅ Allowed environment variable
+
+functions:
+  getItem:
+    handler: src/handlers/get.handler
+    events:
+      - http:
+          path: items/{id}
+          method: get
+
+  createItem:
+    handler: src/handlers/create.handler
+    events:
+      - http:
+          path: items
+          method: post
